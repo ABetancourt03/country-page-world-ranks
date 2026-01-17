@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 
 import { type Country } from '../types.ts'
-import { $ } from './utils.js'
+import { $ } from './utils'
 
 import Hero from './components/Hero.tsx'
 import CountriesTable from './components/CountriesTable.tsx'
 import CheckInput from './components/CheckInput.tsx'
-import FilterButton from './components/FilterButton.tsx'
 import SearchIcon from './assets/Search.svg'
 
 export default function App() {
@@ -32,7 +31,7 @@ export default function App() {
     }
 
     getCountries().catch((err) => console.error(err))
-  }, [filteredCountries, excludedRegions])
+  }, [filteredCountries])
 
   async function filterCountries() {
     try {
