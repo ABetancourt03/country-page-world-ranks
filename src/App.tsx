@@ -38,7 +38,7 @@ export default function App() {
       const res = await fetch('https://restcountries.com/v3.1/all?fields=name,flags,population,area,region')
       const data: Country[] = await res.json()
 
-      const searchInput = $('#searchCountriesInput').value.toLowerCase()
+      const searchInput = (($('#searchCountriesInput') as HTMLInputElement)?.value ?? '').toLowerCase()
       const filteredData = data.filter((country) => country.name?.common?.toLowerCase()?.includes(searchInput))
 
       if (filteredData.length < 1) {
