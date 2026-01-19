@@ -11,7 +11,7 @@ import SearchIcon from './assets/Search.svg'
 export default function App() {
   const [countries, setCountries] = useState<Country[]>([])
   const [filteredCountries, setFilteredCountries] = useState<Country[]>([])
-  const [excludedRegions, setExcludedRegions] = useState<string[]>([])
+  // const [excludedRegions, setExcludedRegions] = useState<string[]>([])
 
   useEffect(() => {
     async function getCountries() {
@@ -51,28 +51,28 @@ export default function App() {
     }
   }
 
-  useEffect(() => {
-    async function excludeRegions(excludedRegions: string[]) {
-      try {
-        const res = await fetch('https://restcountries.com/v3.1/all?fields=name,flags,population,area,region')
-        const data: Country[] = await res.json()
+  // useEffect(() => {
+  //   async function excludeRegions(excludedRegions: string[]) {
+  //     try {
+  //       const res = await fetch('https://restcountries.com/v3.1/all?fields=name,flags,population,area,region')
+  //       const data: Country[] = await res.json()
 
-        const filteredData = data.filter((country) => !excludedRegions.includes(country.region))
+  //       const filteredData = data.filter((country) => !excludedRegions.includes(country.region))
 
-        console.log(excludedRegions)
+  //       console.log(excludedRegions)
 
-        if (filteredData.length < 1) {
-          setCountries([])
-        } else {
-          setFilteredCountries(filteredData)
-        }
-      } catch (err) {
-        console.error('Failed to fetch countries', err)
-      }
-    }
+  //       if (filteredData.length < 1) {
+  //         setCountries([])
+  //       } else {
+  //         setFilteredCountries(filteredData)
+  //       }
+  //     } catch (err) {
+  //       console.error('Failed to fetch countries', err)
+  //     }
+  //   }
 
-    excludeRegions(excludedRegions).catch((err) => console.error(err))
-  }, [excludedRegions])
+  //   excludeRegions(excludedRegions).catch((err) => console.error(err))
+  // }, [excludedRegions])
 
   return (
     <section className='flex flex-col items-center w-full'>
