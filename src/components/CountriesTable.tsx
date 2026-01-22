@@ -20,7 +20,9 @@ export default function CountriesTable({ countries }: { countries: Country[] }) 
             <td>
               <img src={country?.flags?.png} alt={country?.flags?.alt} className='my-4 w-12 rounded' />
             </td>
-            <td>{country?.name?.common}</td>
+            <td>
+              <a href={`/country/${country?.name?.common}`}>{country?.name?.common}</a>
+            </td>
             <td>{country?.population?.toLocaleString()}</td>
             <td>{country?.area?.toLocaleString()}</td>
             <td>{country?.region}</td>
