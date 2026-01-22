@@ -18,10 +18,9 @@ export default function App() {
       try {
         const res = await fetch('https://restcountries.com/v3.1/all?fields=name,flags,population,area,region')
         const data: Country[] = await res.json()
-        setCountries(data)
 
         if (!filteredCountries || filteredCountries.length < 1) {
-          setCountries(data)
+          setCountries(data.sort((a, b) => (a.name?.common || '').localeCompare(b.name?.common || '')))
         } else {
           setCountries(filteredCountries)
         }
@@ -49,6 +48,23 @@ export default function App() {
     } catch (err) {
       console.error('Failed to fetch countries', err)
     }
+  }
+
+  function sortCountries(e: React.ChangeEvent<HTMLSelectElement>) {
+    const sortBy = e.target.value
+    const sortedCountries = [...countries].sort((a, b) => {
+      if (sortBy === 'population') {
+        return (b.population || 0) - (a.population || 0)
+      } else if (sortBy === 'area') {
+        return (b.area || 0) - (a.area || 0)
+      } else if (sortBy === 'name-az') {
+        return (a.name?.common || '').localeCompare(b.name?.common || '')
+      } else if (sortBy === 'name-za') {
+        return (b.name?.common || '').localeCompare(a.name?.common || '')
+      }
+      return 0
+    })
+    setCountries(sortedCountries)
   }
 
   // useEffect(() => {
@@ -101,9 +117,12 @@ export default function App() {
                 <select
                   id='sortBySelect'
                   className='w-full text-sm font-medium bg-[#1B1D1F] border-[#282B30] border-2 rounded-xl p-2 focus:outline-none'
+                  onChange={sortCountries}
                 >
                   <option value='population'>Population</option>
                   <option value='area'>Area</option>
+                  <option value='name-az'>Name (A-Z)</option>
+                  <option value='name-za'>Name (Z-A)</option>
                 </select>
               </div>
             </div>
