@@ -18,7 +18,7 @@ export default function CountriesTable({ countries }: { countries: Country[] }) 
         {countries.map((country) => (
           <tr key={country?.name?.common}>
             <td>
-              <img src={country?.flags?.png} alt={country?.flags?.alt} className='my-4 w-12 rounded' />
+              <img src={country?.flags?.png} alt={country?.flags?.alt} className='my-4 w-16 rounded' />
             </td>
             <td>
               <a href={`/country/${country?.name?.common}`}>{country?.name?.common}</a>
